@@ -218,7 +218,7 @@ function Game() {
       console.error("Error creating game:", err);
     }
   };
-// ✅ Correct scoring logic: avoids doubling
+// Correct scoring logic: avoids doubling
 const LETTER_VALUES = {
   A: 1, B: 3, C: 3, D: 2, E: 1, F: 4, G: 2,
   H: 4, I: 1, J: 8, K: 5, L: 1, M: 3, N: 1,
@@ -301,7 +301,7 @@ const calculateWordScore = (placedTiles, board) => {
   }, [currentPlayerIndex, choiceMade]);
 
   // Human Play
-  // ✅ HUMAN TURN - clean, single-score logic
+  //  HUMAN TURN - clean, single-score logic
 const handlePlayWord = async (playWordFn) => {
   const move = await playWordFn();
 
@@ -314,7 +314,7 @@ const handlePlayWord = async (playWordFn) => {
 
   const { word, placement, score } = move;
 
-  // ✅ Ensure we only apply this score once
+  //  Ensure we only apply this score once
   const baseScore = Number(score) || 0;
 
   const newBoard = board.map((row, r) =>
@@ -335,7 +335,7 @@ const handlePlayWord = async (playWordFn) => {
   // Refill rack
   const [refilledRack, newBag] = refillRack(newRack, tileBag);
 
-  // ✅ Update state once per valid move
+  //  Update state once per valid move
   setBoard(newBoard);
   setPlayers(prev => {
     const copy = [...prev];

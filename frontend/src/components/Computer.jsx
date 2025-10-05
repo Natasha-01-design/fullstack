@@ -103,6 +103,9 @@ const tryPlaceWord = (board, word, row, col, direction) => {
 export const Computer = async (game, rack, dictionary = Dictionary) => {
   const anchors = findAnchors(game.board);
   const allWords = await dictionary.getAllWords();
+  console.log("AI Dictionary size:", allWords?.length);
+
+  
 
   let bestMove = null;
   let bestScore = 0;
