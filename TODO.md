@@ -1,0 +1,4 @@
+- [x] Modify WordValidator.jsx to remove state updates and return move details
+- [x] Update Game.jsx handlePlayWord to apply board, score, rack updates
+- [x] Fix saveGameState in Game.jsx to save current player scores without doubling
+- [x] Modify Computer.jsx to validate all formed words including cross words
