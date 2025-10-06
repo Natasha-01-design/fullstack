@@ -18,7 +18,6 @@ function ScrabbleBoard({
     const cell = board[rowIndex][colIndex];
     if (cell.tile && !cell.tile.isNew) return;
 
-    // Add to previewPlacement instead of board directly
     const existingIndex = previewPlacement.findIndex(
       (p) => p.row === rowIndex && p.col === colIndex
     );

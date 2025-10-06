@@ -21,7 +21,7 @@ function WordValidator({
       return;
     }
 
-    // Collect all placed tiles
+ 
     const newTiles = previewPlacement.map((p) => ({
       row: p.row,
       col: p.col,
@@ -30,7 +30,7 @@ function WordValidator({
       isNew: true,
     }));
 
-    // Undo logic: Return tiles to rack if invalid
+   
     const undoPlacedTiles = () => {
       setBoard((prev) =>
         prev.map((row) =>
@@ -55,7 +55,7 @@ function WordValidator({
       setSelectedTile(null);
     };
 
-    // Alignment check
+ 
     const rows = newTiles.map((t) => t.row);
     const cols = newTiles.map((t) => t.col);
     const isSameRow = rows.every((r) => r === rows[0]);
@@ -67,7 +67,7 @@ function WordValidator({
       return;
     }
 
-    // First move check
+ 
     const isFirstMove = board.every((row) => row.every((cell) => !cell.tile));
     if (isFirstMove && !newTiles.some((t) => t.row === 7 && t.col === 7)) {
       alert("First word must cover the center tile (★ at H8).");
@@ -75,7 +75,7 @@ function WordValidator({
       return;
     }
 
-    // Connectivity check
+   
     if (!isFirstMove) {
       const isConnected = newTiles.some(({ row, col }) => {
         const neighbors = [
@@ -93,13 +93,13 @@ function WordValidator({
       }
     }
 
-    // Word construction function
+  
     const getWord = (row, col, horizontal) => {
       let word = "";
       let r = row,
         c = col;
 
-      // Move to word start
+     
       while (
         board[r - (horizontal ? 0 : 1)]?.[c - (horizontal ? 1 : 0)]?.tile ||
         newTiles.some(
@@ -112,7 +112,7 @@ function WordValidator({
         c -= horizontal ? 1 : 0;
       }
 
-      // Collect letters forward
+   
       while (board[r]?.[c]?.tile || newTiles.some((t) => t.row === r && t.col === c)) {
         const tile = board[r]?.[c]?.tile || newTiles.find((t) => t.row === r && t.col === c);
         word += tile.letter;
@@ -122,7 +122,7 @@ function WordValidator({
       return word;
     };
 
-    // Build words
+   
     const words = [];
     const isHorizontal = isSameRow;
     const mainTile = isHorizontal
@@ -131,13 +131,13 @@ function WordValidator({
     const mainWord = getWord(mainTile.row, mainTile.col, isHorizontal);
     if (mainWord.length > 1) words.push(mainWord);
 
-    // Check crosswords
+   
     newTiles.forEach((t) => {
       const crossWord = getWord(t.row, t.col, !isHorizontal);
       if (crossWord.length > 1) words.push(crossWord);
     });
 
-    // Validate words
+   
     for (const w of words) {
       const valid = await validateWord(w);
       if (!valid) {
@@ -147,8 +147,6 @@ function WordValidator({
       }
     }
 
-    // Calculate score
-    // Corrected scoring logic
 let totalScore = 0;
 let wordMultiplier = 1;
 
@@ -167,7 +165,7 @@ const finalScore = totalScore * wordMultiplier;
 
 
 
-    // Update board and state
+    
     setBoard((prev) =>
       prev.map((row, r) =>
         row.map((cell, c) => {
@@ -206,7 +204,7 @@ const finalScore = totalScore * wordMultiplier;
     return { placement: newTiles, score: finalScore };
   };
 
-  // JSX return (must be last and valid JSX)
+
   return <>{children({ playWord })}</>;
 }
 

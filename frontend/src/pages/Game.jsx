@@ -285,8 +285,9 @@ const calculateWordScore = (placedTiles, board) => {
         setBoard(newBoard);
         setPlayers(prev => {
           const copy = [...prev];
-         
+
           copy[currentPlayerIndex].rack = refilledRack;
+          copy[currentPlayerIndex].score += score;
           return copy;
         });
         setTileBag([...newBag]);
@@ -336,13 +337,14 @@ const handlePlayWord = async (playWordFn) => {
   const [refilledRack, newBag] = refillRack(newRack, tileBag);
 
   //  Update state once per valid move
+    //  Update state once per valid move (score already handled in WordValidator)
   setBoard(newBoard);
   setPlayers(prev => {
     const copy = [...prev];
-    copy[currentPlayerIndex].score += baseScore;
     copy[currentPlayerIndex].rack = refilledRack;
     return copy;
   });
+
 
   setTileBag([...newBag]);
   setPlayedWords(prev => [...prev, word]);
